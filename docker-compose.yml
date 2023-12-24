@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  chat-gpt:
+    image: upagge/chatgpt-telegram-bot:latest
+    container_name: chatgpt-bot
+    restart: always
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_BOT_USERNAME: ${TELEGRAM_BOT_USERNAME}
+      TELEGRAM_PERSON_ID: ${TELEGRAM_PERSON_ID}
+      ADMIN_TELEGRAM_PERSON_ID: ${ADMIN_TELEGRAM_PERSON_ID}
+      CHAT_GPT_TOKEN: ${CHAT_GPT_TOKEN}
