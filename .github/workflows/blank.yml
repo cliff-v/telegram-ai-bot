@@ -43,16 +43,16 @@ jobs:
                # Скачать последнюю версию образа
                docker pull safronovt/telegram-bot-chatgpt:latest
           
-               # Удалить старый образ, если он существует и отличается от нового
-               if [ -n "$OLD_IMAGE_ID" ] && [ "$OLD_IMAGE_ID" != "$(docker images -q safronovt/telegram-bot-chatgpt:latest)" ]; then
-                 docker rmi $OLD_IMAGE_ID
-               fi
-          
                if [ $(docker ps -a -q -f name=telegram-bot-chatgpt) ]; then
                   docker stop telegram-bot-chatgpt
                   docker rm telegram-bot-chatgpt
                fi
           
                docker run --name telegram-bot-chatgpt -d safronovt/telegram-bot-chatgpt:latest
+          
+               # Удалить старый образ, если он существует и отличается от нового
+               if [ -n "$OLD_IMAGE_ID" ] && [ "$OLD_IMAGE_ID" != "$(docker images -q safronovt/telegram-bot-chatgpt:latest)" ]; then
+                 docker rmi $OLD_IMAGE_ID
+               fi           
             EOF
 
