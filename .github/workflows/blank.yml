@@ -36,16 +36,14 @@ jobs:
       # Развертывание на сервере
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-            docker pull ***/telegram-bot-chatgpt:latest
-
-            # Остановка и удаление контейнера, если он существует
-            if [ $(docker ps -a -q -f name=telegram-bot-chatgpt) ]; then
-              docker stop telegram-bot-chatgpt
-              docker rm telegram-bot-chatgpt
-            fi
-
-            # Запуск контейнера
-            docker run --name telegram-bot-chatgpt -d ***/telegram-bot-chatgpt:latest
+               ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+               docker pull safronovt/telegram-bot-chatgpt:latest
+          
+               if [ $(docker ps -a -q -f name=telegram-bot-chatgpt) ]; then
+               docker stop telegram-bot-chatgpt
+               docker rm telegram-bot-chatgpt
+               fi
+          
+               docker run --name telegram-bot-chatgpt -d ***/telegram-bot-chatgpt:latest
           EOF
 
