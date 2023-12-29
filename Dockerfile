@@ -1,3 +1,13 @@
+# Использование базового образа с Maven
+FROM maven:3.6.3-jdk-11 AS build
+
+# Копирование исходного кода
+COPY src /home/app/src
+COPY pom.xml /home/app
+
+# Сборка приложения
+RUN mvn -f /home/app/pom.xml clean package \
+    \
 FROM eclipse-temurin:17 as app-build
 ENV RELEASE=17
 
