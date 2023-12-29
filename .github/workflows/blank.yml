@@ -40,10 +40,10 @@ jobs:
                docker pull safronovt/telegram-bot-chatgpt:latest
           
                if [ $(docker ps -a -q -f name=telegram-bot-chatgpt) ]; then
-               docker stop telegram-bot-chatgpt
-               docker rm telegram-bot-chatgpt
+                  docker stop telegram-bot-chatgpt
+                  docker rm telegram-bot-chatgpt
                fi
           
-               docker run --name telegram-bot-chatgpt -d ***/telegram-bot-chatgpt:latest
+               docker run --name telegram-bot-chatgpt -d safronovt/telegram-bot-chatgpt:latest
             EOF
 
