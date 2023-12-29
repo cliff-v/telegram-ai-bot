@@ -8,7 +8,7 @@ public class Main {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Hello, world!");
+            System.out.println("А теперь вносим изменения в Hello, world!");
         }
     }
 }
