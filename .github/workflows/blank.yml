@@ -36,7 +36,7 @@ jobs:
       # Развертывание на сервере
       - name: Deploy to server
         run: |
-               ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+            ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
                docker pull safronovt/telegram-bot-chatgpt:latest
           
                if [ $(docker ps -a -q -f name=telegram-bot-chatgpt) ]; then
@@ -45,5 +45,5 @@ jobs:
                fi
           
                docker run --name telegram-bot-chatgpt -d ***/telegram-bot-chatgpt:latest
-          EOF
+            EOF
 
