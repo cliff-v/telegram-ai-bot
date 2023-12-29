@@ -25,20 +25,20 @@ jobs:
 
       # Сборка Docker образа
       - name: Build Docker image
-        run: docker build -t your-image-name .
+        run: docker build -t dockerhubusername/telegram-bot-chatgpt .
 
       # Публикация образа в Docker репозиторий
       - name: Push Docker image to registry
         run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push your-image-name
+          docker push dockerhubusername/telegram-bot-chatgpt
 
       # Развертывание на сервере
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-            docker pull your-image-name
-            docker stop your-container || true
-            docker rm your-container || true
-            docker run --name your-container -d your-image-name
+            docker pull dockerhubusername/telegram-bot-chatgpt
+            docker stop telegram-bot-chatgpt || true
+            docker rm telegram-bot-chatgpt || true
+            docker run --name telegram-bot-chatgpt -d dockerhubusername/telegram-bot-chatgpt
           EOF
