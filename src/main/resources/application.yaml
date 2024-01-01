@@ -1,19 +1,29 @@
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://51.75.33.92:5432/safronov_db?currentSchema=market
-    username: safronovdb
-    password: 1111
-  jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+  spring:
+    datasource:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password:
+    h2:
+      console:
+        enabled: true
 server:
   port: 8189
   servlet:
     context-path: /aibot
 bot:
   token:
+
+#    datasource:
+#      driver-class-name: org.postgresql.Driver
+#      url: jdbc:postgresql://51.75.33.92:5432/safronov_db?currentSchema=market
+#      username: safronovdb
+#      password: 1111
+#    jpa:
+#      database: postgresql
+#      database-platform: org.hibernate.dialect.PostgreSQLDialect
+#      show-sql: true
+#      properties:
+#        hibernate:
+#          dialect: org.hibernate.dialect.PostgreSQLDialect
