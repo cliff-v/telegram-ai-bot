@@ -13,7 +13,7 @@ server:
   servlet:
     context-path: /aibot
 bot:
-  token:
+  token: 6080665930:AAGq3G1qvUljUknAf2YfymXMd8f76cWs8iY
 
 #    datasource:
 #      driver-class-name: org.postgresql.Driver
