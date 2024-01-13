@@ -18,7 +18,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <telegram.version>6.8.0</telegram.version>
+        <telegrambots.version>6.8.0</telegrambots.version>
         <lombok.version>1.18.30</lombok.version>
         <logback.version>1.4.14</logback.version>
         <httpclient5.version>5.3</httpclient5.version>
@@ -65,14 +65,14 @@
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
-            <version>${telegram.version}</version>
+            <version>${telegrambots.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.telegram/telegrambotsextensions -->
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambotsextensions</artifactId>
-            <version>${telegram.version}</version>
+            <version>${telegrambots.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
         <dependency>

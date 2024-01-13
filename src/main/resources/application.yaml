@@ -12,8 +12,14 @@ server:
   port: 8189
   servlet:
     context-path: /aibot
-bot:
-  token:
+telegram:
+  bot:
+    token: ${TELEGRAM_BOT_TOKEN}
+    username: ${TELEGRAM_BOT_USERNAME}
+    person-id: ${TELEGRAM_PERSON_ID}
+    admin-person-id: ${ADMIN_TELEGRAM_PERSON_ID}
+chat-gpt:
+  token: ${CHAT_GPT_TOKEN}
 
 #    datasource:
 #      driver-class-name: org.postgresql.Driver

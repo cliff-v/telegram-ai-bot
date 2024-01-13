@@ -11,15 +11,14 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Component
 public class BotComponent extends TelegramLongPollingBot {
-
-    // Создаём их объект для регистрации
     private final TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 
-    // Достаём токен бота
-    @Value("${bot.token}")
-    private String botToken;
+    private final String botToken;
 
-    public BotComponent() throws TelegramApiException {}
+    public BotComponent(@Value("${telegram.bot.token}") String botToken) throws TelegramApiException {
+        super(botToken);
+        this.botToken = botToken;
+    }
 
     @PostConstruct
     private void init() throws TelegramApiException {
