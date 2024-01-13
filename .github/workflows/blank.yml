@@ -26,6 +26,12 @@ jobs:
       # Сборка Docker образа
       - name: Build Docker image
         run: docker build -t safronovt/telegram-bot-chatgpt .
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_BOT_USERNAME: ${{ secrets.TELEGRAM_BOT_USERNAME }}
+          TELEGRAM_PERSON_ID: ${{ secrets.TELEGRAM_PERSON_ID }}
+          ADMIN_TELEGRAM_PERSON_ID: ${{ secrets.ADMIN_TELEGRAM_PERSON_ID }}
+          CHAT_GPT_TOKEN: ${{ secrets.CHAT_GPT_TOKEN }}
 
       # Публикация образа в Docker репозиторий
       - name: Push Docker image to registry
