@@ -1,8 +1,0 @@
-telegram:
-  bot:
-    token: 123
-    username: 113
-    person-id: 123
-    admin-person-id: 123
-chat-gpt:
-  token: 123
