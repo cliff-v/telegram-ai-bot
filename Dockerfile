@@ -3,6 +3,7 @@ FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src /app/src
+ENV TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
 RUN mvn clean package
 
 # Используйте базовый образ Java для запуска собранного jar
