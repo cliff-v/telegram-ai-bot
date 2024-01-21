@@ -3,14 +3,22 @@ FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src /app/src
+
+# Объявляем аргументы, которые будут переданы во время сборки
+ARG TELEGRAM_BOT_TOKEN
+ARG TELEGRAM_BOT_USERNAME
+ARG TELEGRAM_PERSON_ID
+ARG ADMIN_TELEGRAM_PERSON_ID
+ARG CHAT_GPT_TOKEN
+
+# Устанавливаем переменные окружения из аргументов сборки
 ENV TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
 ENV TELEGRAM_BOT_USERNAME=${TELEGRAM_BOT_USERNAME}
 ENV TELEGRAM_PERSON_ID=${TELEGRAM_PERSON_ID}
 ENV ADMIN_TELEGRAM_PERSON_ID=${ADMIN_TELEGRAM_PERSON_ID}
 ENV CHAT_GPT_TOKEN=${CHAT_GPT_TOKEN}
 
-ARG TELEGRAM_BOT_TOKEN
-ARG TELEGRAM_BOT_USERNAME
+# Логирование для проверки значений переменных окружения
 RUN echo "kotik118Token: $TELEGRAM_BOT_TOKEN"
 RUN echo "kotik118Username: $TELEGRAM_BOT_USERNAME"
 
