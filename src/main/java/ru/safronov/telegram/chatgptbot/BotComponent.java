@@ -23,6 +23,7 @@ public class BotComponent extends TelegramLongPollingBot {
         super(botToken);
         this.botToken = botToken;
         this.username = username;
+
     }
 
     @PostConstruct
