@@ -21,7 +21,6 @@ public class BotComponent extends TelegramLongPollingBot {
             @Value("${telegram.bot.username}") String username
     ) throws TelegramApiException {
         super(botToken);
-
         this.botToken = botToken;
         this.username = username;
     }
