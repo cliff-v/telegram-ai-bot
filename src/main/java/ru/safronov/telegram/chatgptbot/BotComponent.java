@@ -14,10 +14,17 @@ public class BotComponent extends TelegramLongPollingBot {
     private final TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 
     private final String botToken;
+    private final String username;
 
-    public BotComponent(@Value("${telegram.bot.token}") String botToken) throws TelegramApiException {
+    public BotComponent(
+            @Value("${telegram.bot.token}") String botToken,
+            @Value("${telegram.bot.username}") String username
+    ) throws TelegramApiException {
         super(botToken);
+        System.out.println("Bot token: " + botToken);
+        System.out.println("Bot username: " + username);
         this.botToken = botToken;
+        this.username = username;
     }
 
     @PostConstruct
@@ -32,7 +39,7 @@ public class BotComponent extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "NevduplenyshVIP_bot";
+        return username;
     }
 
     @Override
