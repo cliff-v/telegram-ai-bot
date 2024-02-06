@@ -18,15 +18,12 @@ ENV TELEGRAM_PERSON_ID=${TELEGRAM_PERSON_ID}
 ENV ADMIN_TELEGRAM_PERSON_ID=${ADMIN_TELEGRAM_PERSON_ID}
 ENV CHAT_GPT_TOKEN=${CHAT_GPT_TOKEN}
 
-# Логирование для проверки значений переменных окружения
-RUN echo "kotik118Token: $TELEGRAM_BOT_TOKEN"
-RUN echo "kotik118Username: $TELEGRAM_BOT_USERNAME"
-
 RUN mvn clean package
 
 # Используйте базовый образ Java для запуска собранного jar
 FROM eclipse-temurin:17-jre
 WORKDIR /app
+
 # Копируем только jar из сборочного контейнера
 COPY --from=build /app/target/telegram-bot-chatgpt.jar /app/telegram-bot-chatgpt.jar
 

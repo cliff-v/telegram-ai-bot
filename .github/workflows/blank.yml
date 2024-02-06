@@ -54,9 +54,15 @@ jobs:
                   docker rm telegram-bot-chatgpt
                fi
           
-               docker run --name telegram-bot-chatgpt -d safronovt/telegram-bot-chatgpt:latest
-          
-               # Удалить старый образ, если он существует и отличается от нового
+               docker run --name telegram-bot-chatgpt -d -p 8080:8189 \
+                  -e TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} \
+                  -e TELEGRAM_BOT_USERNAME=${{ secrets.TELEGRAM_BOT_USERNAME }} \
+                  -e TELEGRAM_PERSON_ID=${{ secrets.TELEGRAM_PERSON_ID }} \
+                  -e ADMIN_TELEGRAM_PERSON_ID=${{ secrets.ADMIN_TELEGRAM_PERSON_ID }} \
+                  -e CHAT_GPT_TOKEN=${{ secrets.CHAT_GPT_TOKEN }} \
+                  safronovt/telegram-bot-chatgpt
+
+  # Удалить старый образ, если он существует и отличается от нового
                if [ -n "$OLD_IMAGE_ID" ] && [ "$OLD_IMAGE_ID" != "$(docker images -q safronovt/telegram-bot-chatgpt:latest)" ]; then
                  docker rmi $OLD_IMAGE_ID
                fi           
