@@ -62,9 +62,9 @@ jobs:
                   -e CHAT_GPT_TOKEN=${{ secrets.CHAT_GPT_TOKEN }} \
                   safronovt/telegram-bot-chatgpt
           
-          # Удалить старый образ, если он существует и отличается от нового
-               if [ -n "$OLD_IMAGE_ID" ] && [ "$OLD_IMAGE_ID" != "$(docker images -q safronovt/telegram-bot-chatgpt:latest)" ]; then
-               docker rmi $OLD_IMAGE_ID
-               fi
+        # Удалить старый образ, если он существует и отличается от нового
+                 if [ -n "$OLD_IMAGE_ID" ] && [ "$OLD_IMAGE_ID" != "$(docker images -q safronovt/telegram-bot-chatgpt:latest)" ]; then
+                 docker rmi $OLD_IMAGE_ID
+                 fi
                EOF
 
