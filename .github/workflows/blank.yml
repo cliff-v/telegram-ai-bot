@@ -42,29 +42,29 @@ jobs:
       # Развертывание на сервере
       - name: Deploy to server
         run: |
-               ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
-                 # Получить ID старого образа
-                 OLD_IMAGE_ID=$(docker images -q safronovt/telegram-bot-chatgpt:latest)
-               
-                 # Скачать последнюю версию образа
-                 docker pull safronovt/telegram-bot-chatgpt:latest
-               
-                 if [ $(docker ps -a -q -f name=telegram-bot-chatgpt) ]; then
-                    docker stop telegram-bot-chatgpt
-                    docker rm telegram-bot-chatgpt
-                 fi
-               
-                 docker run --name telegram-bot-chatgpt -d -p 8080:8189 \
-                  -e TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} \
-                  -e TELEGRAM_BOT_USERNAME=${{ secrets.TELEGRAM_BOT_USERNAME }} \
-                  -e TELEGRAM_PERSON_ID=${{ secrets.TELEGRAM_PERSON_ID }} \
-                  -e ADMIN_TELEGRAM_PERSON_ID=${{ secrets.ADMIN_TELEGRAM_PERSON_ID }} \
-                  -e CHAT_GPT_TOKEN=${{ secrets.CHAT_GPT_TOKEN }} \
-                  safronovt/telegram-bot-chatgpt
-          
-        # Удалить старый образ, если он существует и отличается от нового
-                 if [ -n "$OLD_IMAGE_ID" ] && [ "$OLD_IMAGE_ID" != "$(docker images -q safronovt/telegram-bot-chatgpt:latest)" ]; then
-                 docker rmi $OLD_IMAGE_ID
-                 fi
-               EOF
+         ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << 'EOF'
+           # Получить ID старого образа
+           OLD_IMAGE_ID=$(docker images -q safronovt/telegram-bot-chatgpt:latest)
+         
+           # Скачать последнюю версию образа
+           docker pull safronovt/telegram-bot-chatgpt:latest
+         
+           if [ $(docker ps -a -q -f name=telegram-bot-chatgpt) ]; then
+              docker stop telegram-bot-chatgpt
+              docker rm telegram-bot-chatgpt
+           fi
+         
+           docker run --name telegram-bot-chatgpt -d -p 8080:8189 \
+            -e TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} \
+            -e TELEGRAM_BOT_USERNAME=${{ secrets.TELEGRAM_BOT_USERNAME }} \
+            -e TELEGRAM_PERSON_ID=${{ secrets.TELEGRAM_PERSON_ID }} \
+            -e ADMIN_TELEGRAM_PERSON_ID=${{ secrets.ADMIN_TELEGRAM_PERSON_ID }} \
+            -e CHAT_GPT_TOKEN=${{ secrets.CHAT_GPT_TOKEN }} \
+            safronovt/telegram-bot-chatgpt
+    
+            # Удалить старый образ, если он существует и отличается от нового
+             if [ -n "$OLD_IMAGE_ID" ] && [ "$OLD_IMAGE_ID" != "$(docker images -q safronovt/telegram-bot-chatgpt:latest)" ]; then
+             docker rmi $OLD_IMAGE_ID
+             fi
+         EOF
 
