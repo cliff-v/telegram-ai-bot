@@ -27,8 +27,6 @@ public class BotComponent extends TelegramLongPollingBot {
 
     @PostConstruct
     private void init() throws TelegramApiException {
-        System.out.println("Bot token: " + botToken);
-        System.out.println("Bot username: " + username);
         telegramBotsApi.registerBot(this);
     }
 
