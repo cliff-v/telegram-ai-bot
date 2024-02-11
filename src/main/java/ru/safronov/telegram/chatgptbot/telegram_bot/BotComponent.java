@@ -1,6 +1,7 @@
-package ru.safronov.telegram.chatgptbot;
+package ru.safronov.telegram.chatgptbot.telegram_bot;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -11,21 +12,26 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import ru.safronov.telegram.chatgptbot.openai.OpenAIService;
 
 @Component
+@Slf4j
 public class BotComponent extends TelegramLongPollingBot {
     private final TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 
     private final String botToken;
     private final String username;
+    private final OpenAIService openAIService;
 
     public BotComponent(
             @Value("${telegram.bot.token}") String botToken,
-            @Value("${telegram.bot.username}") String username
+            @Value("${telegram.bot.username}") String username,
+            OpenAIService openAIService
     ) throws TelegramApiException {
         super(botToken);
         this.botToken = botToken;
         this.username = username;
+        this.openAIService = openAIService;
     }
 
     @PostConstruct
@@ -35,11 +41,13 @@ public class BotComponent extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        User user = update.getMessage().getFrom();
+       User user = update.getMessage().getFrom();
         String text = update.getMessage().getText();
-        System.out.println(user + " " + text);
+        log.info("BotComponent.onUpdateReceived with update: " + update);
+ /*        System.out.println(user + " " + text);
         sendText(user.getId(), "Привет, %s! Твой текст: %s".formatted(user.getFirstName(), text));
-        copyMessage(user.getId(), update.getMessage().getMessageId());
+        copyMessage(user.getId(), update.getMessage().getMessageId());*/
+        sendText(user.getId(), openAIService.callOpenAI(text));
     }
 
     @Override

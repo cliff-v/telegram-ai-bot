@@ -6,4 +6,4 @@ telegram:
     person-id: 123
     admin-person-id: 132
 chat-gpt:
-  token: 123
+  token: ${CHAT_GPT_TOKEN_DEV}
