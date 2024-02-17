@@ -31,7 +31,10 @@ jobs:
           --build-arg TELEGRAM_BOT_USERNAME=${{ secrets.TELEGRAM_BOT_USERNAME }} \
           --build-arg TELEGRAM_PERSON_ID=${{ secrets.TELEGRAM_PERSON_ID }} \
           --build-arg ADMIN_TELEGRAM_PERSON_ID=${{ secrets.ADMIN_TELEGRAM_PERSON_ID }} \
-          --build-arg CHAT_GPT_TOKEN=${{ secrets.CHAT_GPT_TOKEN }}
+          --build-arg CHAT_GPT_TOKEN=${{ secrets.CHAT_GPT_TOKEN }} \
+          --build-arg DATASOURCE_URL=${{ secrets.DATASOURCE_URL }} \
+          --build-arg DATASOURCE_USERNAME=${{ secrets.DATASOURCE_USERNAME }} \
+          --build-arg DATASOURCE_PASSWORD=${{ secrets.DATASOURCE_PASSWORD }} 
 
       # Публикация образа в Docker репозиторий
       - name: Push Docker image to registry
@@ -60,6 +63,9 @@ jobs:
             -e TELEGRAM_PERSON_ID=${{ secrets.TELEGRAM_PERSON_ID }} \
             -e ADMIN_TELEGRAM_PERSON_ID=${{ secrets.ADMIN_TELEGRAM_PERSON_ID }} \
             -e CHAT_GPT_TOKEN=${{ secrets.CHAT_GPT_TOKEN }} \
+            -e DATASOURCE_URL=${{ secrets.DATASOURCE_URL }} \
+            -e DATASOURCE_USERNAME=${{ secrets.DATASOURCE_USERNAME }} \
+            -e DATASOURCE_PASSWORD=${{ secrets.DATASOURCE_PASSWORD }} \
             safronovt/telegram-bot-chatgpt
     
             # Удалить старый образ, если он существует и отличается от нового

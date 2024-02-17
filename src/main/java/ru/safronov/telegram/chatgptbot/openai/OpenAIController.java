@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 public class OpenAIController {
 
     @Autowired
-    private OpenAIService openAIService;
+    private OpenAiMainService openAiMainService;
 
     @PostMapping("/openai")
     public String getOpenAIResponse(@RequestBody String prompt) {
-        return openAIService.callOpenAI(prompt);
+        return "openAiMainService.callOpenAI(prompt)";
     }
 }

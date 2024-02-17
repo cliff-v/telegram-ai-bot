@@ -9,6 +9,29 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>enimaloc-snapshots</id>
+            <url>https://m2.enimaloc.fr/snapshots</url>
+        </repository>
+        <repository>
+            <id>enimaloc-releases</id>
+            <url>https://m2.enimaloc.fr/releases</url>
+        </repository>
+        <repository>
+            <id>jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>local</id>
+            <url>file://${user.home}/.m2/repository</url>
+        </repository>
+    </repositories>
+
     <groupId>ru.safronov.telegram.bot.chatgpt</groupId>
     <artifactId>telegram-bot-chatgpt</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -22,6 +45,7 @@
         <lombok.version>1.18.30</lombok.version>
         <logback.version>1.4.14</logback.version>
         <httpclient5.version>5.3</httpclient5.version>
+        <theokanning.openai.version>0.18.2</theokanning.openai.version>
     </properties>
 
     <dependencies>
@@ -110,6 +134,12 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.theokanning.openai-gpt3-java</groupId>
+            <artifactId>service</artifactId>
+            <version>${theokanning.openai.version}</version>
         </dependency>
     </dependencies>
 

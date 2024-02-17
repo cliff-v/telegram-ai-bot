@@ -1,9 +1,5 @@
-
 telegram:
   bot:
-    token: 6729769391:AAGidsnslvs-zjXcMsdqXNiWJ_RCJbiviEU
     username: Testovich Botus
     person-id: 123
     admin-person-id: 132
-chat-gpt:
-  token: ${CHAT_GPT_TOKEN_DEV}
