@@ -1,4 +1,4 @@
-package ru.safronov.telegram.chatgptbot.telegram_bot;
+package ru.safronov.telegram.chatgptbot.telegrambot;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.methods.CopyMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -20,8 +19,6 @@ import ru.safronov.telegram.chatgptbot.models.MessageDto;
 import ru.safronov.telegram.chatgptbot.openai.OpenAiHelper;
 import ru.safronov.telegram.chatgptbot.openai.OpenAiMainService;
 import ru.safronov.telegram.chatgptbot.repositories.UsersRepository;
-
-import java.util.concurrent.CountDownLatch;
 
 @Component
 @Slf4j
@@ -52,11 +49,16 @@ public class BotComponent extends TelegramLongPollingBot {
         String text = update.getMessage().getText();
 
         var userDao = usersRepository.findByTgId(user.getId()).orElse(null);
-        if (userDao == null || !(userDao.getType().equals("ADMIN") || userDao.getType().equals("USER"))) {
+        if (userDao == null || !checkAccess(userDao)) {
+            sendMessage(user.getId(), "Иди своей дорогой, странник. Нет тебе входа в сию обитель");
             return;
         }
 
         openAiMainService.callStreamOpenAI(text, userDao);
+    }
+
+    private static boolean checkAccess(ru.safronov.telegram.chatgptbot.models.User userDao) {
+        return userDao.getType().equals("ADMIN") || userDao.getType().equals("USER");
     }
 
     @Override
@@ -64,11 +66,24 @@ public class BotComponent extends TelegramLongPollingBot {
         return username;
     }
 
+    public void sendMessage(Long who, String what){
+        SendMessage sm = SendMessage.builder()
+                .chatId(who.toString())
+                .text(what)
+                .parseMode("MarkdownV2")
+                .build();
+        try {
+            execute(sm);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @EventListener
     public void handleSendMessage(BotTelegramSenderModels.SendMessageEvent event) {
         SendMessage sm = SendMessage.builder().chatId(event.getChatId().toString())
                 .text(event.getMessage().isBlank() ? "." : event.getMessage())
+                .parseMode("Markdown")
                 .build();
 
         Message message;
@@ -93,6 +108,7 @@ public class BotComponent extends TelegramLongPollingBot {
         editMessageText.setChatId(String.valueOf(event.getChatId()));
         editMessageText.setMessageId(event.getMessageId());
         editMessageText.setText(event.getNewText());
+        editMessageText.setParseMode("Markdown");
 
         try {
             execute(editMessageText);

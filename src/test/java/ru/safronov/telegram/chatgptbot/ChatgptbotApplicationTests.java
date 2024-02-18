@@ -3,7 +3,7 @@ package ru.safronov.telegram.chatgptbot;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.safronov.telegram.chatgptbot.telegram_bot.BotComponent;
+import ru.safronov.telegram.chatgptbot.telegrambot.BotComponent;
 
 @SpringBootTest
 class ChatgptbotApplicationTests {
