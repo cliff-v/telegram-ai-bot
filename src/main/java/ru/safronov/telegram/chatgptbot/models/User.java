@@ -14,9 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "users")
 public class User extends BaseSequenceEntity {
-    private Long tgId;
     private String tgName;
-    private String realName;
-    private String type;
     private String comment;
+    private String type;
+    private String realName;
+    private Long tgId;
+    private String firstName;
+    private String lastName;
 }

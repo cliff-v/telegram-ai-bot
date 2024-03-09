@@ -52,7 +52,7 @@ public class OpenAiMainService {
         List<ChatMessage> messages = OpenAiHelper.getUsersMessagesMap()
                 .computeIfAbsent(userDao.getTgId(), k -> new ArrayList<>());
 
-        ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), HELPER_SYSTEM_PROMPT);
+        ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), RUDNESS_SYSTEM_PROMPT);
         messages.add(systemMessage);
 
         ChatMessage firstMsg = new ChatMessage(ChatMessageRole.USER.value(), prompt);
